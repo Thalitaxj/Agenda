@@ -1,0 +1,27 @@
+{
+  "name": "AgendaAí",
+  "short_name": "AgendaAí",
+  "description": "Agendamento online simples para profissionais e seus clientes.",
+  "id": "/",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f8fafc",
+  "theme_color": "#fbbf24",
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "./img/logo-mark.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "./img/icon-maskable.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}

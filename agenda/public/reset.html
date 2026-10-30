@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Redefinir senha — AgendaAí</title>
+  <link rel="icon" type="image/svg+xml" href="./img/logo-mark.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./css/styles.css" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <meta name="theme-color" content="#fbbf24" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="AgendaAí" />
+  <link rel="apple-touch-icon" href="./img/icon-maskable.svg" />
+  <script type="module" src="./js/pwa.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar__inner">
+      <div class="brand"><span class="brand__dot"></span> AgendaAí</div>
+    </div>
+  </header>
+
+  <main class="container container--narrow" style="padding-top:28px;padding-bottom:60px">
+    <div class="card" id="reset-card">
+      <h1 style="font-size:1.3rem">Redefinir senha</h1>
+      <p class="muted small" id="reset-sub">Defina sua nova senha de acesso.</p>
+
+      <form id="reset-form">
+        <div class="field">
+          <label for="r-pass">Nova senha</label>
+          <input class="input" id="r-pass" type="password" autocomplete="new-password" minlength="6" required />
+        </div>
+        <div class="field">
+          <label for="r-pass2">Confirme a nova senha</label>
+          <input class="input" id="r-pass2" type="password" autocomplete="new-password" minlength="6" required />
+        </div>
+        <button class="btn btn--primary btn--block btn--lg" id="r-submit" type="submit">Salvar nova senha</button>
+      </form>
+    </div>
+
+    <div id="reset-invalid" class="empty hidden" style="margin-top:20px">
+      Link inválido ou expirado. Volte à <a href="./index.html">página inicial</a> e peça um novo link de recuperação.
+    </div>
+  </main>
+
+  <script type="module" src="./js/reset.js"></script>
+</body>
+</html>

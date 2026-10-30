@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="Barbearia">
+  <defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1f2937"/><stop offset="1" stop-color="#0b1220"/></linearGradient></defs>
+  <rect width="400" height="300" fill="url(#g1)"/>
+  <circle cx="320" cy="60" r="90" fill="#25d366" opacity="0.12"/>
+  <!-- poste de barbearia -->
+  <rect x="186" y="70" width="28" height="150" rx="14" fill="#ffffff"/>
+  <g clip-path="url(#c1)">
+    <clipPath id="c1"><rect x="186" y="70" width="28" height="150" rx="14"/></clipPath>
+    <g>
+      <rect x="170" y="60" width="16" height="200" fill="#e24a4a" transform="rotate(30 200 150)"/>
+      <rect x="194" y="60" width="16" height="200" fill="#3b82f6" transform="rotate(30 200 150)"/>
+      <rect x="218" y="60" width="16" height="200" fill="#e24a4a" transform="rotate(30 200 150)"/>
+      <rect x="146" y="60" width="16" height="200" fill="#3b82f6" transform="rotate(30 200 150)"/>
+    </g>
+  </g>
+  <circle cx="200" cy="66" r="10" fill="#9aa3af"/>
+  <circle cx="200" cy="224" r="10" fill="#9aa3af"/>
+  <!-- tesoura -->
+  <g stroke="#25d366" stroke-width="6" fill="none" transform="translate(70 180) rotate(-20)">
+    <circle cx="0" cy="0" r="12"/><circle cx="0" cy="34" r="12"/>
+    <line x1="10" y1="6" x2="70" y2="24"/><line x1="10" y1="28" x2="70" y2="10"/>
+  </g>
+</svg>

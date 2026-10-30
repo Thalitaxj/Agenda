@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AgendaAí — Agendamento pelo WhatsApp</title>
+  <link rel="icon" type="image/svg+xml" href="./img/logo-mark.svg" />
+  <meta name="description" content="Organize sua agenda e receba agendamentos pelo WhatsApp. Para barbeiros, manicures, tatuadores e profissionais autônomos." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./css/styles.css" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <meta name="theme-color" content="#111827" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="AgendaAí" />
+  <link rel="apple-touch-icon" href="./img/icon-maskable.svg" />
+  <script type="module" src="./js/pwa.js"></script>
+</head>
+<body class="landing-dark">
+  <div id="config-banner" class="config-banner hidden">
+    Supabase ainda não configurado. Preencha <code>public/js/config.js</code> (veja SETUP.md) para ativar login e agendamentos.
+  </div>
+
+  <header class="topbar">
+    <div class="container topbar__inner">
+      <img class="brand__logo" src="./img/logo.svg" alt="AgendaAí" />
+      <button class="btn btn--primary btn--sm" id="btn-open-auth">Entrar</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero__bg" aria-hidden="true"></div>
+      <div class="container hero__inner">
+        <div class="hero__copy">
+          <span class="pill">Agendamento pelo WhatsApp</span>
+          <h1>Sua agenda organizada,<br />agendamentos pelo WhatsApp</h1>
+          <p class="hero__slogan">Praticidade com um toque de excelência.</p>
+          <p>Compartilhe um link, o cliente escolhe o horário livre e confirma pelo WhatsApp. Chega de trocar dezenas de mensagens para marcar um horário.</p>
+          <div class="hero__actions">
+            <button class="btn btn--primary btn--lg" id="btn-hero-cta">Criar minha agenda grátis</button>
+            <button class="btn btn--primary btn--lg" id="btn-open-auth-2">Já tenho conta</button>
+          </div>
+          <div class="hero__trust">
+            <span>✓ Sem instalar nada</span>
+            <span>✓ Funciona no celular</span>
+            <span>✓ Pronto em minutos</span>
+          </div>
+        </div>
+        <div class="hero__media">
+          <img src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=900&q=80"
+               alt="Profissional atendendo cliente com agenda organizada"
+               loading="eager" width="800" height="600"
+               onerror="this.onerror=null;this.src='./img/hero.svg'" />
+        </div>
+      </div>
+    </section>
+
+    <!-- PÚBLICO ALVO -->
+    <section class="container section">
+      <h2 class="center section__title">Feito para o seu trabalho</h2>
+      <p class="center muted section__sub">Barbeiros, manicures, tatuadores, cabeleireiros e autônomos.</p>
+      <div class="audience">
+        <figure class="audience__card">
+          <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=600&q=80"
+               alt="Barbearia" loading="lazy" onerror="this.onerror=null;this.src='./img/barbearia.svg'" />
+          <figcaption>Barbearia</figcaption>
+        </figure>
+        <figure class="audience__card">
+          <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=600&q=80"
+               alt="Manicure" loading="lazy" onerror="this.onerror=null;this.src='./img/manicure.svg'" />
+          <figcaption>Manicure</figcaption>
+        </figure>
+        <figure class="audience__card">
+          <img src="https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?auto=format&fit=crop&w=600&q=80"
+               alt="Tatuagem" loading="lazy" onerror="this.onerror=null;this.src='./img/tatuagem.svg'" />
+          <figcaption>Tatuagem</figcaption>
+        </figure>
+        <figure class="audience__card">
+          <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=600&q=80"
+               alt="Cabeleireiro" loading="lazy" onerror="this.onerror=null;this.src='./img/cabelo.svg'" />
+          <figcaption>Cabelo</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- COMO FUNCIONA -->
+    <section class="section section--alt">
+      <div class="container">
+        <h2 class="center section__title">Como funciona</h2>
+        <div class="features">
+          <div class="feature">
+            <div class="feature__icon">🔗</div>
+            <h3>Link público</h3>
+            <p class="muted mb-0">Cada profissional tem sua página de agendamento para compartilhar onde quiser.</p>
+          </div>
+          <div class="feature">
+            <div class="feature__icon">🗓️</div>
+            <h3>Sem conflito de horário</h3>
+            <p class="muted mb-0">O sistema mostra só os horários livres e valida tudo antes de salvar.</p>
+          </div>
+          <div class="feature">
+            <div class="feature__icon">💬</div>
+            <h3>Confirmação no WhatsApp</h3>
+            <p class="muted mb-0">O cliente finaliza com uma mensagem pronta no seu WhatsApp.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="container section">
+      <div class="cta-band">
+        <div>
+          <h2 class="mb-0">Comece a receber agendamentos hoje</h2>
+          <p class="muted mb-0">Crie sua agenda em minutos e compartilhe seu link.</p>
+        </div>
+        <button class="btn btn--primary btn--lg" id="btn-cta-final">Criar agenda grátis</button>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="container spread">
+        <div class="brand"><span class="brand__dot"></span> AgendaAí</div>
+        <span class="muted small">Agendamento online pelo WhatsApp</span>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Modal de autenticação -->
+  <div id="auth-modal" class="modal-backdrop hidden">
+    <div class="modal">
+      <div class="spread">
+        <h2 id="auth-title" class="mb-0">Entrar</h2>
+        <button class="btn btn--ghost btn--sm" id="auth-close">Fechar</button>
+      </div>
+      <p class="muted small" id="auth-subtitle">Acesse seu painel para gerenciar a agenda.</p>
+
+      <form id="auth-form">
+        <div class="field" id="field-name">
+          <label for="f-name">Nome do profissional / negócio</label>
+          <input class="input" id="f-name" type="text" autocomplete="name" placeholder="Ex: Studio do João" />
+        </div>
+        <div class="field" id="field-slug">
+          <label for="f-slug">Link público desejado (opcional)</label>
+          <input class="input" id="f-slug" type="text" placeholder="ex: studio-do-joao" />
+          <div class="help">Seu link será /agendar?slug=<span id="slug-preview">...</span></div>
+        </div>
+        <div class="field">
+          <label for="f-email">E-mail</label>
+          <input class="input" id="f-email" type="email" autocomplete="email" required />
+        </div>
+        <div class="field">
+          <label for="f-password">Senha</label>
+          <input class="input" id="f-password" type="password" autocomplete="current-password" minlength="6" required />
+        </div>
+        <button class="btn btn--primary btn--block" id="auth-submit" type="submit">Entrar</button>
+      </form>
+
+      <p class="center small" id="forgot-row" style="margin-top:10px">
+        <a href="#" id="auth-forgot">Esqueci minha senha</a>
+      </p>
+
+      <p class="center small" style="margin-top:6px">
+        <span id="auth-switch-text">Ainda não tem conta?</span>
+        <a href="#" id="auth-switch">Criar conta grátis</a>
+      </p>
+    </div>
+  </div>
+
+  <script type="module" src="./js/auth.js"></script>
+</body>
+</html>

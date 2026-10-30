@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Confirmar presença — AgendaAí</title>
+  <link rel="icon" type="image/svg+xml" href="./img/logo-mark.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./css/styles.css" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <meta name="theme-color" content="#fbbf24" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="AgendaAí" />
+  <link rel="apple-touch-icon" href="./img/icon-maskable.svg" />
+  <script type="module" src="./js/pwa.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar__inner">
+      <div class="brand"><span class="brand__dot"></span> AgendaAí</div>
+    </div>
+  </header>
+
+  <main class="container container--narrow" style="padding-top:18px;padding-bottom:60px">
+    <div id="loading" class="loading-block">Carregando...</div>
+
+    <div id="content" class="hidden">
+      <section class="card">
+        <h1 style="font-size:1.3rem">Seu agendamento</h1>
+        <div class="summary" id="summary"></div>
+
+        <div id="att-state" class="hidden"></div>
+
+        <div id="actions">
+          <p class="help">O que você gostaria de fazer?</p>
+          <button class="btn btn--wa btn--block btn--lg" id="btn-confirm" type="button">✓ Confirmar presença</button>
+          <button class="btn btn--ghost btn--block" id="btn-reschedule" type="button" style="margin-top:10px">🔁 Solicitar reagendamento</button>
+          <button class="btn btn--danger btn--block" id="btn-cancel" type="button" style="margin-top:10px">✕ Cancelar agendamento</button>
+        </div>
+
+        <div id="result" class="hidden"></div>
+
+        <div id="review-form" class="review-form hidden">
+          <h2 style="font-size:1.1rem;margin:4px 0 2px">Como foi seu atendimento?</h2>
+          <p class="help" style="margin:0 0 10px">Sua avaliação ajuda outras pessoas e o profissional.</p>
+          <div class="rating-input" id="review-stars" role="group" aria-label="Nota de 1 a 5 estrelas"></div>
+          <textarea id="review-comment" class="input" rows="3" maxlength="500"
+            placeholder="Conte como foi (opcional)" style="margin-top:12px;resize:vertical"></textarea>
+          <button class="btn btn--wa btn--block btn--lg" id="btn-review" type="button" style="margin-top:12px">Enviar avaliação</button>
+        </div>
+      </section>
+    </div>
+
+    <div id="not-found" class="hidden empty" style="margin-top:40px">
+      Link inválido ou expirado. Peça um novo link ao profissional.
+    </div>
+  </main>
+
+  <script type="module" src="./js/responder.js"></script>
+</body>
+</html>

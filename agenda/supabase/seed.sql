@@ -1,0 +1,6 @@
+-- =============================================================================
+-- AgendaAí — seed
+--
+-- Não há dados obrigatórios de seed. (O recurso de planos/monetização foi
+-- removido.) Use este arquivo se quiser inserir dados de exemplo para testes.
+-- =============================================================================

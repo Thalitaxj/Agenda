@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel — AgendaAí</title>
+  <link rel="icon" type="image/svg+xml" href="./img/logo-mark.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./css/styles.css" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <meta name="theme-color" content="#fbbf24" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="AgendaAí" />
+  <link rel="apple-touch-icon" href="./img/icon-maskable.svg" />
+  <script type="module" src="./js/pwa.js"></script>
+</head>
+<body>
+  <div id="config-banner" class="config-banner hidden">
+    Supabase não configurado. Preencha <code>public/js/config.js</code> (veja SETUP.md).
+  </div>
+
+  <div class="app-shell" id="app-shell">
+    <div class="sidebar__backdrop" id="sidebar-backdrop"></div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar__brand"><img class="brand__logo" src="./img/logo.svg" alt="AgendaAí" /></div>
+      <button class="sidebar__collapse" id="sidebar-collapse" type="button" aria-label="Recolher menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="16" height="16"><path d="M15 18l-6-6 6-6"/></svg>
+        <span>Recolher</span>
+      </button>
+      <nav class="sidebar__nav" id="tabs" aria-label="Navegação principal">
+        <div class="sidebar__group">
+          <div class="sidebar__group-label">Visão geral</div>
+          <button class="nav-item tab is-active" data-view="dashboard">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+            <span class="nav-item__label">Dashboard</span>
+          </button>
+        </div>
+        <div class="sidebar__group">
+          <div class="sidebar__group-label">Gestão</div>
+          <button class="nav-item tab" data-view="agenda">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            <span class="nav-item__label">Agenda</span>
+          </button>
+          <button class="nav-item tab" data-view="clients">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg>
+            <span class="nav-item__label">Clientes</span>
+          </button>
+          <button class="nav-item tab" data-view="services">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 7h-9M14 17H5M17 3v8M7 13v8"/><circle cx="17" cy="14" r="3"/><circle cx="7" cy="10" r="3"/></svg>
+            <span class="nav-item__label">Serviços</span>
+          </button>
+          <button class="nav-item tab" data-view="availability">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            <span class="nav-item__label">Horários</span>
+          </button>
+        </div>
+        <div class="sidebar__group">
+          <div class="sidebar__group-label">Relacionamento</div>
+          <button class="nav-item tab" data-view="clients">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7.4-6.3-4.6L5.7 21 8 14 2 9.4h7.6z"/></svg>
+            <span class="nav-item__label">Fidelização</span>
+          </button>
+          <button class="nav-item tab" data-view="dashboard">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+            <span class="nav-item__label">Lembretes</span>
+          </button>
+        </div>
+        <div class="sidebar__group">
+          <div class="sidebar__group-label">Financeiro</div>
+          <button class="nav-item tab" data-view="report">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg>
+            <span class="nav-item__label">Relatórios</span>
+          </button>
+        </div>
+        <div class="sidebar__group">
+          <div class="sidebar__group-label">Presença online</div>
+          <button class="nav-item" id="nav-public" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20"/></svg>
+            <span class="nav-item__label">Página pública</span>
+          </button>
+          <button class="nav-item" id="nav-share" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M16 6l-4-4-4 4M12 2v14"/></svg>
+            <span class="nav-item__label">Compartilhar link</span>
+          </button>
+        </div>
+        <div class="sidebar__group">
+          <div class="sidebar__group-label">Sistema</div>
+          <button class="nav-item tab" data-view="profile">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-2.7 1.1V22a2 2 0 0 1-4 0v-.2A1.6 1.6 0 0 0 6.6 20l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1A1.6 1.6 0 0 0 4 14.6H4a2 2 0 0 1 0-4h.2A1.6 1.6 0 0 0 6 6.6l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1A1.6 1.6 0 0 0 11 4.6V4a2 2 0 0 1 4 0v.2a1.6 1.6 0 0 0 2.7 1.1l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0 1.1 2.7H22a2 2 0 0 1 0 4h-.2a1.6 1.6 0 0 0-1.4 1z"/></svg>
+            <span class="nav-item__label">Configurações</span>
+          </button>
+          <button class="nav-item tab" data-view="profile">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span class="nav-item__label">Meu perfil</span>
+          </button>
+        </div>
+      </nav>
+      <div class="sidebar__footer">
+        <div class="sidebar__user">
+          <div class="avatar" id="sidebar-avatar">?</div>
+          <div class="sidebar__user-info">
+            <div class="sidebar__user-name" id="sidebar-user-name">Profissional</div>
+            <div class="sidebar__user-sub">Ver perfil</div>
+          </div>
+        </div>
+        <button class="btn btn--ghost btn--sm btn--block" id="btn-logout" style="margin-top:6px">Sair</button>
+      </div>
+    </aside>
+
+    <!-- CONTEÚDO -->
+    <div class="app-main">
+      <div class="app-topbar">
+        <button class="app-topbar__menu" id="menu-toggle" aria-label="Abrir menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="20" height="20"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        </button>
+        <div class="brand" style="font-size:1rem"><span class="brand__dot"></span> AgendaAí</div>
+        <div style="margin-left:auto; display:flex; gap:8px">
+          <button class="btn btn--primary btn--sm" id="btn-share">Meu link</button>
+        </div>
+      </div>
+      <main class="app-content">
+    <!-- DASHBOARD -->
+    <section class="view" id="view-dashboard">
+      <div id="dash-greeting" class="dash-greeting"></div>
+
+      <div id="mode-banner" class="mode-banner hidden"></div>
+
+      <div class="dash-cards" id="dash-cards"></div>
+
+      <div class="card" id="reminders-card">
+        <div class="spread">
+          <h2 class="card__title mb-0">Lembretes para enviar</h2>
+          <button class="btn btn--wa btn--sm hidden" id="send-all-reminders">Enviar todos</button>
+        </div>
+        <p class="help">Agendamentos confirmados perto do horário. Cada botão abre o WhatsApp do cliente com a mensagem pronta e o link de confirmação. O sistema marca os que já foram, para não repetir.</p>
+        <div id="reminders-list"></div>
+      </div>
+
+      <div class="card">
+        <div class="spread">
+          <h2 class="card__title mb-0">Agenda de hoje</h2>
+          <button class="btn btn--primary btn--sm" id="dash-new-appt">+ Agendar</button>
+        </div>
+        <div id="dash-today"><div class="loading-block">Carregando...</div></div>
+      </div>
+
+      <div class="card">
+        <h2 class="card__title">Atalhos rápidos</h2>
+        <div class="dash-actions">
+          <button class="btn btn--ghost" id="dash-add-client">👤 Adicionar cliente</button>
+          <button class="btn btn--ghost" id="dash-block">⛔ Bloquear horário</button>
+          <button class="btn btn--ghost" id="dash-new-appt-2">🗓️ Novo agendamento</button>
+          <button class="btn btn--ghost" id="dash-full-agenda">📅 Agenda completa</button>
+          <button class="btn btn--wa" id="dash-share">🔗 Copiar link público</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- AGENDA -->
+    <section class="view hidden" id="view-agenda">
+      <div class="stat-grid" id="stats" style="margin-bottom:18px"></div>
+
+      <div class="card">
+        <div class="spread">
+          <h2 class="card__title mb-0">Agenda</h2>
+          <button class="btn btn--primary btn--sm" id="btn-new-appt">+ Novo</button>
+        </div>
+        <div class="tabs" style="border:none;padding:8px 0">
+          <button class="tab is-active" data-range="day">Dia</button>
+          <button class="tab" data-range="week">Semana</button>
+          <button class="tab" data-range="month">Mês</button>
+        </div>
+        <div class="spread" style="margin:6px 0 14px; gap:8px; flex-wrap:wrap">
+          <button class="btn btn--ghost btn--sm" id="nav-prev">‹</button>
+          <strong id="range-label"></strong>
+          <button class="btn btn--ghost btn--sm" id="nav-next">›</button>
+          <input class="input" id="agenda-jump" type="date" style="width:auto; min-width:150px" aria-label="Ir para a data" />
+          <button class="btn btn--ghost btn--sm" id="agenda-today">Hoje</button>
+        </div>
+        <div class="field" style="margin-bottom:12px">
+          <label for="att-filter">Filtrar por confirmação de presença</label>
+          <select class="select" id="att-filter">
+            <option value="all">Todos</option>
+            <option value="confirmed">Presença confirmada</option>
+            <option value="pending">Sem resposta</option>
+            <option value="declined">Recusou / cancelou</option>
+            <option value="reschedule">Pediu reagendamento</option>
+          </select>
+        </div>
+        <div id="agenda-list"><div class="loading-block">Carregando...</div></div>
+      </div>
+    </section>
+
+    <!-- SERVIÇOS -->
+    <section class="view hidden" id="view-services">
+      <div class="card">
+        <div class="spread">
+          <h2 class="card__title mb-0">Serviços</h2>
+          <button class="btn btn--primary btn--sm" id="btn-new-service">+ Serviço</button>
+        </div>
+        <p class="help" id="service-limit"></p>
+        <div id="services-list"><div class="loading-block">Carregando...</div></div>
+      </div>
+    </section>
+
+    <!-- HORÁRIOS -->
+    <section class="view hidden" id="view-availability">
+      <div class="card">
+        <h2 class="card__title">Dias e horários de atendimento</h2>
+        <p class="help">Defina as janelas em que você atende. Pode haver mais de uma por dia (ex: manhã e tarde).</p>
+        <div id="availability-list"></div>
+      </div>
+      <div class="card">
+        <div class="spread">
+          <h2 class="card__title mb-0">Folgas e bloqueios</h2>
+          <button class="btn btn--primary btn--sm" id="btn-new-block">+ Bloqueio</button>
+        </div>
+        <p class="help">Intervalos em que você não atende (feriado, almoço de um dia específico, compromisso).</p>
+        <div id="blocks-list"><div class="loading-block">Carregando...</div></div>
+      </div>
+    </section>
+
+    <!-- CLIENTES -->
+    <section class="view hidden" id="view-clients">
+      <div class="dash-cards" id="client-stats" style="margin-bottom:16px"></div>
+
+      <div class="card">
+        <div class="spread">
+          <h2 class="card__title mb-0">Clientes que precisam retornar</h2>
+          <select class="select" id="return-period" style="width:auto">
+            <option value="15">+15 dias</option>
+            <option value="30" selected>+30 dias</option>
+            <option value="60">+60 dias</option>
+            <option value="90">+90 dias</option>
+          </select>
+        </div>
+        <p class="help">Clientes sem agendamento futuro e cuja última visita concluída passou do período.</p>
+        <div id="return-list"><div class="loading-block">Carregando...</div></div>
+      </div>
+
+      <div class="card">
+        <div class="spread">
+          <h2 class="card__title mb-0">Clientes</h2>
+          <button class="btn btn--primary btn--sm" id="clients-new">+ Cliente</button>
+        </div>
+        <input class="input" id="client-search" placeholder="Buscar por nome ou telefone" style="margin:12px 0" />
+        <div class="row">
+          <div class="field" style="margin-bottom:10px"><label class="small">Última visita</label>
+            <select class="select" id="filter-lastvisit">
+              <option value="all">Todas</option>
+              <option value="15">Há mais de 15 dias</option>
+              <option value="30">Há mais de 30 dias</option>
+              <option value="60">Há mais de 60 dias</option>
+              <option value="90">Há mais de 90 dias</option>
+              <option value="never">Nunca visitou</option>
+            </select>
+          </div>
+          <div class="field" style="margin-bottom:10px"><label class="small">Serviço mais usado</label>
+            <select class="select" id="filter-service"><option value="all">Todos</option></select>
+          </div>
+          <div class="field" style="margin-bottom:10px"><label class="small">Agendamento futuro</label>
+            <select class="select" id="filter-future">
+              <option value="all">Todos</option>
+              <option value="with">Com agendamento</option>
+              <option value="without">Sem agendamento</option>
+            </select>
+          </div>
+          <div class="field" style="margin-bottom:10px"><label class="small">Ordenar por</label>
+            <select class="select" id="filter-sort">
+              <option value="recent">Visita mais recente</option>
+              <option value="oldest">Visita mais antiga</option>
+              <option value="name">Nome (A-Z)</option>
+            </select>
+          </div>
+        </div>
+        <div id="clients-list"><div class="loading-block">Carregando...</div></div>
+      </div>
+    </section>
+
+    <!-- RELATÓRIO -->
+    <section class="view hidden" id="view-report">
+      <div class="card">
+        <h2 class="card__title">Relatório de faturamento</h2>
+        <div class="tabs" style="border:none;padding:4px 0">
+          <button class="tab is-active" data-period="day">Dia</button>
+          <button class="tab" data-period="month">Mês</button>
+          <button class="tab" data-period="year">Ano</button>
+          <button class="tab" data-period="custom">Período</button>
+        </div>
+
+        <!-- Navegação por dia/mês/ano (com seletor de calendário para pular direto) -->
+        <div id="rep-nav" class="spread" style="margin:6px 0 14px; gap:8px; flex-wrap:wrap">
+          <button class="btn btn--ghost btn--sm" id="rep-prev">‹</button>
+          <strong id="rep-label"></strong>
+          <button class="btn btn--ghost btn--sm" id="rep-next">›</button>
+          <input class="input" id="rep-jump" type="date" style="width:auto; min-width:150px" aria-label="Ir para a data" />
+        </div>
+
+        <!-- Período personalizado (intervalo via calendário) -->
+        <div id="rep-custom" class="row hidden" style="margin:6px 0 14px">
+          <div class="field" style="margin-bottom:0"><label class="small">De</label><input class="input" id="rep-from" type="date" /></div>
+          <div class="field" style="margin-bottom:0"><label class="small">Até</label><input class="input" id="rep-to" type="date" /></div>
+        </div>
+
+        <div class="dash-cards" id="rep-cards"></div>
+      </div>
+      <div class="card">
+        <h2 class="card__title">Detalhamento</h2>
+        <div id="rep-detail"><div class="loading-block">Carregando...</div></div>
+      </div>
+      <div class="card">
+        <h2 class="card__title">Horários mais procurados</h2>
+        <p class="help" style="margin-top:-6px">Com base nos agendamentos deste período (cancelados não contam). Use para otimizar sua agenda.</p>
+        <div id="rep-peaks"></div>
+      </div>
+    </section>
+
+    <!-- PERFIL -->
+    <section class="view hidden" id="view-profile">
+      <div class="card">
+        <h2 class="card__title">Perfil profissional</h2>
+        <form id="profile-form">
+          <div class="field"><label for="p-name">Nome / negócio</label><input class="input" id="p-name" /></div>
+          <div class="field"><label for="p-slug">Link público (slug)</label><input class="input" id="p-slug" />
+            <div class="help">Link: <a id="p-link" href="#" target="_blank" rel="noopener"></a></div>
+          </div>
+          <div class="field"><label for="p-phone">WhatsApp (com DDD, só números)</label><input class="input" id="p-phone" placeholder="5511999999999" /></div>
+          <div class="field"><label for="p-address">Endereço</label><input class="input" id="p-address" /></div>
+          <div class="field"><label for="p-avatar">URL da foto (perfil)</label><input class="input" id="p-avatar" placeholder="https://..." />
+            <div class="help">Link de uma imagem sua ou do seu logo.</div>
+          </div>
+          <div class="field"><label for="p-cover">URL da capa (opcional)</label><input class="input" id="p-cover" placeholder="https://..." />
+            <div class="help">Imagem de fundo que aparece no topo da sua página pública.</div>
+          </div>
+          <div class="field"><label for="p-desc">Descrição</label><textarea class="textarea" id="p-desc"></textarea></div>
+          <div class="field"><label for="p-instagram">Instagram (usuário, sem @)</label><input class="input" id="p-instagram" placeholder="seuperfil" />
+            <div class="help">Aparece como botão na sua página pública.</div>
+          </div>
+          <div class="field"><label for="p-gallery">Galeria de trabalhos (uma URL de imagem por linha)</label>
+            <textarea class="textarea" id="p-gallery" placeholder="https://.../foto1.jpg&#10;https://.../foto2.jpg"></textarea>
+            <div class="help">Cole os links das fotos dos seus trabalhos. Elas aparecem numa galeria na página pública.</div>
+          </div>
+          <div class="row">
+            <div class="field"><label for="p-rem1">1º lembrete (horas antes)</label><input class="input" id="p-rem1" type="number" min="1" max="72" value="24"></div>
+            <div class="field"><label for="p-rem2">2º lembrete (horas antes)</label><input class="input" id="p-rem2" type="number" min="1" max="24" value="3"></div>
+          </div>
+          <div class="field">
+            <label>Confirmação de agendamentos</label>
+            <div class="toggle-card">
+              <label class="switch">
+                <input type="checkbox" id="p-confirm-mode" />
+                <span class="switch__track"><span class="switch__thumb"></span></span>
+              </label>
+              <div class="toggle-card__text">
+                <strong id="confirm-mode-title">Aprovação manual</strong>
+                <span class="help" id="confirm-mode-desc">Os pedidos entram como "Solicitado" e você confirma cada um.</span>
+              </div>
+            </div>
+          </div>
+          <div class="field"><label for="p-buffer">Intervalo entre atendimentos (min)</label><input class="input" id="p-buffer" type="number" min="0" max="120" step="5" value="0">
+            <div class="help">Folga reservada antes e depois de cada atendimento.</div>
+          </div>
+          <div class="field">
+            <label><input type="checkbox" id="p-work-holidays"> Atender em feriados nacionais</label>
+            <div class="help">Por padrão, feriados nacionais ficam bloqueados na agenda. Marque para atender normalmente nesses dias.</div>
+          </div>
+
+          <h3 style="font-size:1rem;margin:20px 0 10px;border-top:1px solid var(--border);padding-top:16px">Sinal / entrada (reduz faltas)</h3>
+          <div class="field">
+            <label><input type="checkbox" id="p-require-deposit"> Exigir sinal para garantir o horário</label>
+            <div class="help">O cliente envia um Pix de sinal e você confirma quando o valor cair. Ótimo para reduzir no-show.</div>
+          </div>
+          <div id="deposit-fields" class="hidden">
+            <div class="row">
+              <div class="field"><label for="p-deposit">Valor do sinal (R$)</label><input class="input" id="p-deposit" type="number" min="0" step="0.01" placeholder="20,00"></div>
+              <div class="field"><label for="p-pix-key">Sua chave Pix</label><input class="input" id="p-pix-key" type="text" placeholder="CPF, telefone, e-mail ou chave aleatória"></div>
+            </div>
+            <div class="field">
+              <label for="p-deposit-policy">Regra do sinal (texto mostrado ao cliente)</label>
+              <textarea class="textarea" id="p-deposit-policy" rows="2" placeholder="Ex: O sinal é abatido do valor no dia. Em caso de falta ou cancelamento em cima da hora, o sinal não é devolvido."></textarea>
+            </div>
+          </div>
+
+          <button class="btn btn--primary" type="submit">Salvar perfil</button>
+        </form>
+      </div>
+    </section>
+      </main>
+    </div>
+  </div>
+
+  <div id="modal-root"></div>
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agendar — AgendaAí</title>
+  <link rel="icon" type="image/svg+xml" href="./img/logo-mark.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./css/styles.css" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <meta name="theme-color" content="#fbbf24" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="AgendaAí" />
+  <link rel="apple-touch-icon" href="./img/icon-maskable.svg" />
+  <script type="module" src="./js/pwa.js"></script>
+</head>
+<body>
+  <div id="config-banner" class="config-banner hidden">
+    Supabase não configurado. Veja SETUP.md.
+  </div>
+
+  <header class="topbar">
+    <div class="container topbar__inner">
+      <div class="brand"><span class="brand__dot"></span> AgendaAí</div>
+    </div>
+  </header>
+
+  <main class="container container--narrow" style="padding-top:18px;padding-bottom:60px">
+    <div id="loading" class="loading-block">Carregando...</div>
+
+    <div id="content" class="hidden">
+      <!-- Cabeçalho do profissional -->
+      <div class="pro-header card">
+        <div class="pro-header__cover" id="pro-cover"></div>
+        <div class="pro-header__body">
+          <div id="pro-avatar" class="avatar avatar--lg"></div>
+          <h1 id="pro-name"></h1>
+          <p id="pro-desc" class="muted small mb-0"></p>
+          <p id="pro-address" class="muted small pro-header__addr"></p>
+          <div id="pro-rating" class="pro-rating hidden"></div>
+          <div class="pro-share" id="pro-share">
+            <button class="btn btn--ghost btn--sm" id="share-copy" type="button" aria-label="Copiar link de agendamento">🔗 Copiar link</button>
+            <button class="btn btn--wa btn--sm" id="share-wa" type="button" aria-label="Compartilhar no WhatsApp">WhatsApp</button>
+            <a class="btn btn--ig btn--sm hidden" id="pro-instagram" target="_blank" rel="noopener" aria-label="Abrir Instagram">Instagram</a>
+            <button class="btn btn--ig btn--sm" id="share-ig" type="button" aria-label="Compartilhar no Instagram">Compartilhar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Galeria de trabalhos -->
+      <section class="card hidden" id="vitrine-gallery-card">
+        <h2 class="card__title">Trabalhos</h2>
+        <div class="gallery" id="vitrine-gallery"></div>
+      </section>
+
+      <!-- Avaliações de clientes -->
+      <section class="card hidden" id="vitrine-reviews-card">
+        <h2 class="card__title">Avaliações</h2>
+        <div id="vitrine-reviews"></div>
+      </section>
+
+      <!-- Barra de progresso dos passos -->
+      <ol class="stepbar" id="stepbar" aria-label="Progresso do agendamento">
+        <li class="stepbar__item is-current" data-step="1"><span class="stepbar__dot">1</span><span class="stepbar__txt">Serviço</span></li>
+        <li class="stepbar__item" data-step="2"><span class="stepbar__dot">2</span><span class="stepbar__txt">Data</span></li>
+        <li class="stepbar__item" data-step="3"><span class="stepbar__dot">3</span><span class="stepbar__txt">Horário</span></li>
+        <li class="stepbar__item" data-step="4"><span class="stepbar__dot">4</span><span class="stepbar__txt">Dados</span></li>
+        <li class="stepbar__item" data-step="5"><span class="stepbar__dot">5</span><span class="stepbar__txt">Resumo</span></li>
+      </ol>
+
+      <!-- Passo 1: serviço -->
+      <section class="card" id="step-service" aria-labelledby="h-service">
+        <h2 class="card__title" id="h-service">1. Escolha o serviço</h2>
+        <div id="services"></div>
+      </section>
+
+      <!-- Passo 2: data -->
+      <section class="card hidden" id="step-date" aria-labelledby="h-date">
+        <h2 class="card__title" id="h-date">2. Escolha a data</h2>
+        <div class="day-strip" id="days"></div>
+      </section>
+
+      <!-- Passo 3: horário -->
+      <section class="card hidden" id="step-time" aria-labelledby="h-time">
+        <h2 class="card__title" id="h-time">3. Escolha o horário</h2>
+        <div id="slots"><div class="loading-block">Carregando horários...</div></div>
+      </section>
+
+      <!-- Passo 4: dados do cliente -->
+      <section class="card hidden" id="step-form" aria-labelledby="h-form">
+        <h2 class="card__title" id="h-form">4. Seus dados</h2>
+        <form id="booking-form" novalidate>
+          <div class="field"><label for="c-name">Seu nome *</label><input class="input" id="c-name" autocomplete="name" required></div>
+          <div class="field"><label for="c-phone">Seu WhatsApp (com DDD) *</label><input class="input" id="c-phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="(11) 99999-9999" required></div>
+          <div class="field"><label for="c-notes">Observação (opcional)</label><textarea class="textarea" id="c-notes" placeholder="Ex: alguma preferência ou informação útil"></textarea></div>
+          <p class="help">Não precisa criar conta. Pedimos só o necessário para agendar.</p>
+          <button class="btn btn--primary btn--block btn--lg" id="to-review-btn" type="submit">Revisar agendamento</button>
+        </form>
+      </section>
+
+      <!-- Passo 5: resumo e envio -->
+      <section class="card hidden" id="step-review" aria-labelledby="h-review">
+        <h2 class="card__title" id="h-review">5. Confirme e envie</h2>
+        <div class="summary" id="summary"></div>
+        <div class="notice">
+          <strong>Isto é uma solicitação.</strong> Seu horário só estará garantido quando o profissional confirmar.
+          Abrir o WhatsApp não confirma o agendamento automaticamente.
+        </div>
+        <div class="review-actions">
+          <button class="btn btn--ghost btn--lg" id="back-btn" type="button">‹ Voltar e corrigir</button>
+          <button class="btn btn--wa btn--lg" id="confirm-btn" type="button">Enviar pedido pelo WhatsApp</button>
+        </div>
+      </section>
+    </div>
+
+    <div id="not-found" class="hidden empty" style="margin-top:40px">
+      Profissional não encontrado. Verifique o link.
+    </div>
+  </main>
+
+  <script type="module" src="./js/booking.js"></script>
+</body>
+</html>
